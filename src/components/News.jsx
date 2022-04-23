@@ -1,17 +1,3 @@
-/* import React from 'react'
-import { Select, Typography, Row, Col, Avatar, Card } from 'antd';
-import moment from 'moment';
-
-const News = () => {
-  return (
-    <div>
-        News
-    </div>
-  )
-}
-
-export default News */
-
 import React, { useState } from 'react';
 import { Select, Typography, Row, Col, Avatar, Card } from 'antd';
 import moment from 'moment';
@@ -28,15 +14,9 @@ const { Option } = Select;
 const News = ({ simplified }) => {
   const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
   const { data } = useGetCryptosQuery(100);
-  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory : 'Cryptocurrency', count: simplified ? 6 : 12 });
+  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory , count: simplified ? 6 : 12 });
 
-  console.log(cryptoNews);
-  return (
-    <div>
-        News
-    </div>
-  )
-  if (!cryptoNews?.value) return 'Loading....';
+  if (!cryptoNews?.value) return 'Loading...news';
 
   return (
     <Row gutter={[24, 24]}>
@@ -51,7 +31,7 @@ const News = ({ simplified }) => {
             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
             <Option value="Cryptocurency">Cryptocurrency</Option>
-            {data?.data?.coins?.map((currency) => <Option value={currency.name}>{currency.name}</Option>)}
+            {data?.data?.coins?.map((coin) => <Option value={coin.name}>{coin.name}</Option>)}
           </Select>
         </Col>
       )}
@@ -76,7 +56,7 @@ const News = ({ simplified }) => {
         </Col>
       ))}
     </Row>
-  );
-};
+  )
+}
 
 export default News;
