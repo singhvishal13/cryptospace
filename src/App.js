@@ -8,12 +8,12 @@ import './App.css';
 const App = () => {
   return (
     <div className="app">
-      <div className="navbar">
+      <div className="navbar" id="navbar">
           <Navbar />
       </div>
       <div className="main">
         <Layout>
-          <div className="routes">
+          <div className="routes" id="container">
             <Switch>
               <Route exact path="/">
                 <Homepage />
@@ -33,7 +33,7 @@ const App = () => {
             </Switch>
           </div>
         </Layout>
-        <div className="footer">
+        <div className="footer" id="footer">
           <Typography.Title level={5} style={{ color: 'white', textAlign: 'center' }}>
               CryptoSpace By Vishal Singh
           </Typography.Title>
