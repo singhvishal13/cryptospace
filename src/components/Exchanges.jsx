@@ -1,55 +1,76 @@
-// import React from 'react';
-// import millify from 'millify';
-// import { Collapse, Row, Col, Typography, Avatar } from 'antd';
-// import HTMLReactParser from 'html-react-parser';
+import React from 'react';
+import millify from 'millify';
+import { Collapse, Row, Col, Typography, Avatar } from 'antd';
+import HTMLReactParser from 'html-react-parser';
 
-// import { useGetExchangesQuery } from '../Services/cryptoApi';
-// //import Loader from './Loader';
 
-// const { Text } = Typography;
-// const { Panel } = Collapse;
+import { useGetCryptoExchangeQuery } from '../Services/cryptoExchangeApi';
+//import Loader from './Loader';
 
-// const Exchanges = () => {
-//   const { data, isFetching } = useGetExchangesQuery();
-//   const exchangesList = data?.data?.exchanges;
-//   if (isFetching) return '..Loading';
+const { Text } = Typography;
+const { Panel } = Collapse;
 
-//   return (
-//     <>
-//       <Row>
-//         <Col span={6}>Exchanges</Col>
-//         <Col span={6}>24h Trade Volume</Col>
-//         <Col span={6}>Markets</Col>
-//         <Col span={6}>Change</Col>
-//       </Row>
-//       <Row>
-//         {exchangesList.map((exchange) => (
-//           <Col span={24}>
-//             <Collapse>
-//               <Panel
-//                 key={exchange.uuid}
-//                 showArrow={false}
-//                 header={(
-//                   <Row key={exchange.uuid}>
-//                     <Col span={6}>
-//                       <Text><strong>{exchange.rank}.</strong></Text>
-//                       <Avatar className="exchange-image" src={exchange.iconUrl} />
-//                       <Text><strong>{exchange.name}</strong></Text>
-//                     </Col>
-//                     <Col span={6}>${millify(exchange.volume)}</Col>
-//                     <Col span={6}>{millify(exchange.numberOfMarkets)}</Col>
-//                     <Col span={6}>{millify(exchange.marketShare)}%</Col>
-//                   </Row>
-//                   )}
-//               >
-//                 {HTMLReactParser(exchange.description || '')}
-//               </Panel>
-//             </Collapse>
-//           </Col>
-//         ))}
-//       </Row>
-//     </>
-//   );
-// };
+const Exchanges = () => {
+  const { data:exchangeList, isFetching } = useGetCryptoExchangeQuery();
+  // const { data, isFetching } = useGetCryptoExchangeQuery();
+  // const exchangeList = data?.data;
+  if (isFetching) return '..Loading Exchanges';
+  console.log(exchangeList)
+  
+  return (
+    <>
+      <Row  style={{backgroundColor: 'rgb(0, 21, 41)', height:38, fontSize: 22, color:'white'}}>
+        <Col span={6} >Exchanges</Col>
+        <Col span={3} >Symbol</Col>
+        <Col span={6} >price</Col>
+        <Col span={4} >24h</Col>
+        <Col span={5} >7d</Col>
+      </Row>      
+        {exchangeList.result.map((exchange) => (
+         <Row >
+          <Col span={24} >
+            <Collapse > 
+              <Panel 
+                key={exchange.rank}
+                showArrow={false}
+                header={(
+                  <>
+                    <Col span={6}>
+                      <Text><strong>{exchange.rank} . </strong></Text>
+                      <Text><strong>{exchange.name}</strong></Text>
+                    </Col>
+                    <Col span={3}>{exchange.circulatingSupply.substring((exchange.circulatingSupply.indexOf(' ') + 1))}</Col>
+                    <Col span={6}>{exchange.price}</Col>
+                    <Col span={4}>{exchange['24h']}%</Col>
+                    <Col span={5}>{exchange['7d']}%</Col>
+                </>
+                  )}
+              >
+                <Row style={{justifyContent: 'center', backgroundColor: 'rgb(0, 21, 41)', color:'white'}}>
+                    <Col >
+                      <Text style={{color:'white'}}><strong>Total Market Cap    :     </strong></Text>
+                      {exchange.marketCap}
+                    </Col>                    
+                </Row>
+                <Row style={{justifyContent: 'center', backgroundColor: 'rgb(0, 21, 41)', color:'white'}}>
+                    <Col >
+                      <Text style={{color:'white'}}><strong>Total Market Volume    :     </strong></Text>
+                      {exchange.marketCap}
+                    </Col>                    
+                </Row>
+                <Row style={{justifyContent: 'center', backgroundColor: 'rgb(0, 21, 41)', color:'white'}}>
+                    <Col >
+                      <Text style={{color:'white'}}><strong>Total Circulating Supply    :     </strong></Text>
+                      {exchange.circulatingSupply}
+                    </Col>                    
+                </Row>
+              </Panel>
+            </Collapse>
+          </Col>
+        </Row>
+        ))}
+    </>
+  );
+};
 
-// export default Exchanges;
+export default Exchanges;
