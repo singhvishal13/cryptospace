@@ -43,11 +43,14 @@ a:hover{
     
     color: white !important;
 } */
-/* .globalDiv{
-    background-color: white;
-    color:white !important;
-    border-radius: 10px;
-} */
+.globalDiv{
+
+    background-image: linear-gradient(rgba(255, 255, 255, 0.728), rgba(255, 255, 255, 0.728)), url("./images/image.jpg");
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}
 /* .globalDiv.col{
     padding: 20px;
 } */
